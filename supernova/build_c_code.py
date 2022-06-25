@@ -4,6 +4,7 @@ ffibuilder = FFI()
 
 ffibuilder.cdef("""
     double dot(double u[3], double v[3]);
+    void cross(double u[3], double v[3], double w[3]);
 """)
 
 
