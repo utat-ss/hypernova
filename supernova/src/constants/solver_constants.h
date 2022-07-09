@@ -8,7 +8,19 @@ typedef struct SolverSolution
     double *t;             // mission elapsed time in seconds
     double *jd;            // absolute mission time in jd
     double (*y)[VEC_SIZE]; // position and velocity of spacecraft
-    int n;                 // number of steps taken
+    size_t n;              // number of steps taken
 } SolverSolution;
+
+typedef struct ButcherTableau
+{
+    double A[][];
+    double b[];
+    double c[];
+} ButcherTableau;
+typedef struct RKSolver
+{
+    ButcherTableau *weights;
+    size_t num_stages;
+} RKSolver;
 
 #endif
