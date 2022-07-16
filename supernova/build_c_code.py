@@ -9,9 +9,12 @@ ffibuilder.cdef("""
 
 
 ffibuilder.set_source('supernova.supernova_c',  # name of the output C extension
-                      '#include "vector_operations.h"',
-                      include_dirs=["supernova/src/vector_math"],
-                      sources=['supernova/src/vector_math/vector_operations.c'])
+                      '#include "vector_operations.h"'
+                      '#include "adaptive_rk.h"',
+                      include_dirs=["supernova/src/vector_math",
+                                    "supernova/src/solvers"],
+                      sources=['supernova/src/vector_math/vector_operations.c',
+                               'supernova/src/solvers/adaptive_rk.c'])
 # TODO: link math library on unix based systems
 
 if __name__ == "__main__":

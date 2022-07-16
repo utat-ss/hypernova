@@ -6,6 +6,6 @@
 SolverSolution *create_solver_solution(size_t n);
 void free_solver_solution(SolverSolution *solution);
 
-SolverSolution *adaptive_rk_solve(RKSolver *solver, double t0, double t1, double y0[VEC_SIZE], double tol, double h0);
+SolverSolution *adaptive_rk_solve(RKSolver *solver, ODEFunction f, double t0, double t1, double y0[VEC_SIZE], double tol, double h0);
 
 #endif // ADAPATIVE_RK_H

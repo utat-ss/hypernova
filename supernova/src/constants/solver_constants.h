@@ -2,6 +2,7 @@
 #define SOLVER_CONSTANTS_H
 
 #define VEC_SIZE 6
+#define MAX_BUTCHER_TABLEAU_SIZE 25
 
 typedef struct SolverSolution
 {
@@ -13,14 +14,17 @@ typedef struct SolverSolution
 
 typedef struct ButcherTableau
 {
-    double A[][];
-    double b[];
-    double c[];
+    double A[MAX_BUTCHER_TABLEAU_SIZE][MAX_BUTCHER_TABLEAU_SIZE];
+    double b[MAX_BUTCHER_TABLEAU_SIZE];
+    double c[MAX_BUTCHER_TABLEAU_SIZE];
 } ButcherTableau;
 typedef struct RKSolver
 {
     ButcherTableau *weights;
     size_t num_stages;
 } RKSolver;
+
+// typedef for ode function
+typedef void (*ODEFunction)(double t, double y[VEC_SIZE], double dydt[VEC_SIZE]);
 
 #endif

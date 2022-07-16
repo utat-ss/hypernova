@@ -1,2 +1,4 @@
 cffi
 pytest
+scipy
+numpy
