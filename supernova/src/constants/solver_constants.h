@@ -14,17 +14,21 @@ typedef struct SolverSolution
 
 typedef struct ButcherTableau
 {
-    double A[MAX_BUTCHER_TABLEAU_SIZE][MAX_BUTCHER_TABLEAU_SIZE];
-    double b[MAX_BUTCHER_TABLEAU_SIZE];
-    double c[MAX_BUTCHER_TABLEAU_SIZE];
+    double (*A)[MAX_BUTCHER_TABLEAU_SIZE];
+    double(*b);
+    double(*c);
 } ButcherTableau;
 typedef struct RKSolver
 {
     ButcherTableau *weights;
     size_t num_stages;
+    int order;
 } RKSolver;
 
 // typedef for ode function
-typedef void (*ODEFunction)(double t, double y[VEC_SIZE], double dydt[VEC_SIZE]);
+typedef void (*ODEFunction)(double t, double jd, double y[VEC_SIZE], double dydt[VEC_SIZE]);
+
+// typedef for error correlation
+typedef void (*RKErrorCorrelation)(double h, double F[MAX_BUTCHER_TABLEAU_SIZE][VEC_SIZE], double *e);
 
 #endif

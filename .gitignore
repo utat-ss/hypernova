@@ -30,3 +30,8 @@ wheels/
 *.egg
 MANIFEST
 *.pyc
+supernova/supernova_c.c
+*.obj
+*.exp
+*.lib
+*.log
