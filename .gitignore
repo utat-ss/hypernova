@@ -9,6 +9,8 @@ venv.bak/
 
 *.pyd
 _*.c
+*.o
+*.so
 
 # Distribution / packaging
 .Python
@@ -35,3 +37,4 @@ supernova/supernova_c.c
 *.exp
 *.lib
 *.log
+.vscode/settings.json

@@ -3,7 +3,7 @@
 
 #include "../constants/solver_constants.h"
 
-SolverSolution *create_solver_solution(size_t n);
+SolverSolution *create_solver_solution(int n);
 void free_solver_solution(SolverSolution *solution);
 
 SolverSolution *adaptive_rk_solve(RKSolver *solver, ODEFunction f, RKErrorCorrelation err_corr,

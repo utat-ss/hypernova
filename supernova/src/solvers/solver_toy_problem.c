@@ -7,7 +7,7 @@ void simple_ode(double t, double jd, double y[VEC_SIZE], double dydt[VEC_SIZE])
 {
     dydt[0] = 2 * (pow(t, 3) + t) / y[0];
 
-    for (size_t i = 1; i < VEC_SIZE; i++)
+    for (int i = 1; i < VEC_SIZE; i++)
     {
         dydt[i] = 0;
     }
@@ -49,10 +49,15 @@ void solver_toy_problem_test()
 
     SolverSolution *solution = adaptive_rk_solve(&solver, f, trivial_error_correlation, t0, t1, y0, 1e-6, 0.1);
 
-    for (size_t i = 0; i < solution->n; i++)
+    for (int i = 0; i < solution->n; i++)
     {
         printf("%f %f %f\n", solution->t[i], solution->jd[i], solution->y[i][0]);
     }
 
     free_solver_solution(solution);
+}
+
+int main() {
+    solver_toy_problem_test();
+    return 0;
 }
