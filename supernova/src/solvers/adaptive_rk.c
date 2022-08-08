@@ -3,7 +3,7 @@
 #include <math.h>
 #include <stdlib.h>
 
-SolverSolution *adaptive_rk_solve(RKSolver *solver, ODEFunction f, RKErrorCorrelation err_corr,
+SolverSolution *adaptive_rk_solve(RKSolver *solver, ODEFunction f,
                                   double t0, double t1, double y0[VEC_SIZE], double tol, double h0)
 {
     /*
@@ -40,8 +40,8 @@ SolverSolution *adaptive_rk_solve(RKSolver *solver, ODEFunction f, RKErrorCorrel
         return NULL;
     }
     // Estimate number of steps required
-    int n = (int)fmax(ceil((t1 - t0) * 86400 / h0), 10);
-    int step = 0;
+    size_t n = (size_t)fmax(ceil((t1 - t0) * 86400 / h0), 10);
+    size_t step = 0;
 
     // Initialize the solution struct
     SolverSolution *solution = malloc(sizeof(SolverSolution));
@@ -59,7 +59,7 @@ SolverSolution *adaptive_rk_solve(RKSolver *solver, ODEFunction f, RKErrorCorrel
     double e;
 
     // Initialize the solution vector
-    for (int i = 0; i < VEC_SIZE; i++)
+    for (size_t i = 0; i < VEC_SIZE; i++)
     {
         solution->y[0][i] = y0[i];
         y[i] = y0[i];
@@ -68,55 +68,63 @@ SolverSolution *adaptive_rk_solve(RKSolver *solver, ODEFunction f, RKErrorCorrel
     solution->jd[0] = jd;
 
     // RK loop
-    while (jd - h/86400 < t1)
+    while (jd - h / 86400 < t1)
     {
-        adaptive_rk_step(f, solver, err_corr, t, jd, y, h, &e);
+        adaptive_rk_step(f, solver, t, jd, y, h, &e);
 
-        // accept step (hardcoded for now)
-
-        // double size of array and reallocate memory
-        if ((step + 1) >= n)
+        if (fabs(e) < tol)
         {
-            n *= 2;
-            solution->y = (double(*)[6])realloc(solution->y, n * sizeof(double[VEC_SIZE]));
-            solution->t = (double(*))realloc(solution->t, n * sizeof(double));
-            solution->jd = (double(*))realloc(solution->jd, n * sizeof(double));
+            // accept step
+            // double size of array and reallocate memory
+            if ((step + 1) >= n)
+            {
+                n *= 2;
+                solution->y = (double(*)[6])realloc(solution->y, n * sizeof(double[VEC_SIZE]));
+                solution->t = (double(*))realloc(solution->t, n * sizeof(double));
+                solution->jd = (double(*))realloc(solution->jd, n * sizeof(double));
+            }
+            for (size_t i = 0; i < VEC_SIZE; i++)
+            {
+                solution->y[step + 1][i] = y[i];
+            }
+            solution->t[step + 1] = t + h;
+            solution->jd[step + 1] = jd + h / 86400;
+
+            step++;
+            t += h;
+            jd += h / 86400;
+
+            // TODO: step size adaptation
         }
-        for (int i = 0; i < VEC_SIZE; i++)
+        else
         {
-            solution->y[step + 1][i] = y[i];
+            // reject step TODO
         }
-        solution->t[step + 1] = t + h;
-        solution->jd[step + 1] = jd + h / 86400;
 
-        step++;
-        t += h;
-        jd += h / 86400;
-
-        // prevent solver from overstepping the end of the mission
-        // if (jd + h / 86400 > t1)
-        // {
-        //     h = (t1 - jd) * 86400;
-        // }
+        // prevent solver from overstepping the end of the time domain
+        if (jd + h / 86400 > t1)
+        {
+            h = (t1 - jd) * 86400;
+        }
     }
     solution->n = step;
 
     return solution;
 }
 
-void adaptive_rk_step(ODEFunction f, RKSolver *solver, RKErrorCorrelation err_corr,
+void adaptive_rk_step(ODEFunction f, RKSolver *solver,
                       double t, double jd, double y[VEC_SIZE], double h, double *e)
 {
     double F[MAX_BUTCHER_TABLEAU_SIZE][VEC_SIZE]; // slopes at each stage
     double v[VEC_SIZE];                           // intermediate values at each stage
 
     // perform all stages
-    for (int stage = 0; stage < solver->num_stages; stage++)
+    for (size_t stage = 0; stage < solver->num_stages; stage++)
     {
-        for (int component = 0; component < VEC_SIZE; component++)
+        for (size_t component = 0; component < VEC_SIZE; component++)
         {
             v[component] = y[component];
-            for (int i = 0; i < stage; i++)
+            for (size_t i = 0; i < stage; i++)
             {
                 v[component] += h * F[i][component] * solver->weights->A[stage][i];
             }
@@ -124,11 +132,12 @@ void adaptive_rk_step(ODEFunction f, RKSolver *solver, RKErrorCorrelation err_co
         f(t + h * solver->weights->c[stage], jd + (h * solver->weights->c[stage]) / 86400, v, F[stage]);
     }
 
-    err_corr(h, F, e);
+    // estimate error
+    solver->err_corr(h, F, e);
 
-    for (int component = 0; component < VEC_SIZE; component++)
+    for (size_t component = 0; component < VEC_SIZE; component++)
     {
-        for (int stage = 0; stage < solver->num_stages; stage++)
+        for (size_t stage = 0; stage < solver->num_stages; stage++)
         {
             y[component] += h * F[stage][component] * solver->weights->b[stage];
         }

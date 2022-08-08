@@ -1,6 +1,8 @@
-#ifndef SOLVER_TOY_PROBLEM_H_
-#define SOLVER_TOY_PROBLEM_H_
+#ifndef SOLVER_TOY_PROBLEM_H
+#define SOLVER_TOY_PROBLEM_H
 
-void solver_toy_problem_test();
+#include "../constants/solver_abstractions.h"
+
+SolverSolution *solver_toy_problem_test();
 
 #endif // SOLVER_TOY_PROBLEM_H
