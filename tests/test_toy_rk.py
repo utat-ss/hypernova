@@ -1,4 +1,4 @@
-from supernova.supernova_c.lib import solver_toy_problem_test, free_solver_solution
+from hypernova.hypernova_c.lib import solver_toy_problem_test, free_solver_solution
 import pytest
 
 

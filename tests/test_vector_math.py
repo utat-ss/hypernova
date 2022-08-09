@@ -1,5 +1,5 @@
-from supernova.supernova_c.lib import dot, cross
-from supernova.supernova_c import ffi
+from hypernova.hypernova_c.lib import dot, cross
+from hypernova.hypernova_c import ffi
 import pytest
 import numpy as np
 

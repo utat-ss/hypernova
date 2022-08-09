@@ -3,7 +3,7 @@
 ## Building Package in-place
 This is useful if you want to quickly rebuild the code without re-`pip install`-ing the entire package.
 
-When you initially install Supernova, run
+When you initially install hypernova, run
 
 ```
 pip install -e .
@@ -13,7 +13,7 @@ The `-e` flag makes it editable in-place
 Then, when you modify the C code, run 
 
 ```
-python3 -m supernova.build_c_code
+python3 -m hypernova.build_c_code
 ```
 to update the C code.
 
@@ -22,7 +22,7 @@ Build the code directly using a C compiler and/or makefile. Use the `-g` flag wh
 
 For example:
 ```
-gcc -o main supernova/src/solvers/adaptive_rk.c supernova/src/solvers/solver_toy_problem.c -lm -g
+gcc -o main hypernova/src/solvers/adaptive_rk.c hypernova/src/solvers/solver_toy_problem.c -lm -g
 
 valgrind ./main
 ```
