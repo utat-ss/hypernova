@@ -1,14 +1,16 @@
-# Supernova Nova 🌠
-Re-implementation of the Supernova orbit propagator in a faster and more accessible package.
+# Hypernova 🌠
+Re-implementation of the [Supernova orbit propagator](https://github.com/spacesys-finch/supernova) in a faster and more accessible package.
+
+Hypernova is a fast orbit propagator implemented in C and wrapped for Python using `cffi`, designed for the University of Toronto Aerospace Team's FINCH mission. FINCH orbits in a 550 km Sun-Synchronous orbit, and as such the solvers and physics models used by Hypernova were selected for the best simulation fidelity in a low-Earth orbit.
 
 # Installation
-You can install Supernova as a Python package directly using the following command:
+You can install Hypernova as a Python package directly using the following command:
 
-`pip install git+https://github.com/spacesys-finch/supernova-nova`
+`pip install git+https://github.com/spacesys-finch/hypernova`
 
-You can then import everything from supernova, as expected with a normal Python package.
+Hypernova will automatically compile C code into suitable binaries for your system on installation -- no more fiddling around with gcc or ctypes needed!
 
-Supernova will automatically compile C code into suitable binaries for your system on installation -- no more fiddling around with gcc or ctypes anymore!
+The Python wrapper takes care of calls to the propagator, making it easier to use for seasoned Python users.
 
 # Testing Suite
-Supernova is equipped with a testing suite to validate its functionality. The way to run the testing suite is to copy the scripts from the `/tests` folder and run `pytest` from your command terminal.
+Hypernova is equipped with a testing suite to validate its functionality. The way to run the testing suite is to copy the scripts from the `/tests` folder into your working path and run `pytest` from your command terminal.
