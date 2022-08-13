@@ -46,7 +46,6 @@ ffibuilder.set_source('hypernova.hypernova_c',  # name of the output C extension
                       '#include "adaptive_rk.h"\n'
                       '#include "rk4.h"\n'
                       '#include "propagate_orbit.h"\n',
-                      libraries=['m'],  # link with C library
                       include_dirs=["hypernova/src/vector_math",
                                     "hypernova/src/solvers",
                                     "hypernova/src/solvers/solver_configurations",
@@ -57,7 +56,7 @@ ffibuilder.set_source('hypernova.hypernova_c',  # name of the output C extension
                                'hypernova/src/solvers/solver_configurations/rk4.c',
                                'hypernova/src/consolidations/propagate_orbit.c',
                                'hypernova/src/physics/earth_gravity/simplified_gravity.c'],
-                      extra_compile_args=['-std=c99', '-O3', '-march=native', '-ffast-math'])
+                      extra_compile_args=['-std=c99', '-O3', '-march=native', '-ffast-math', "-lm"])
 # TODO: link math library on unix based systems
 
 if __name__ == "__main__":
