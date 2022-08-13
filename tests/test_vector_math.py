@@ -13,6 +13,7 @@ def test_dot_product():
 
     assert result_np == result_sn
 
+
 def test_cross_product():
     u = [1, 2, 3]
     v = [4, 5, 6]

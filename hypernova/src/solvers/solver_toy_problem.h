@@ -1,7 +1,7 @@
 #ifndef SOLVER_TOY_PROBLEM_H
 #define SOLVER_TOY_PROBLEM_H
 
-#include "../constants/solver_abstractions.h"
+#include "../abstractions/solver_abstractions.h"
 
 SolverSolution *solver_toy_problem_test();
 

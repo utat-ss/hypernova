@@ -3,8 +3,9 @@
 
 #include <stdbool.h>
 #include <stdlib.h>
+#include "../constants/program_constants.h"
+#include "spacecraft.h"
 
-#define VEC_SIZE 6
 #define MAX_BUTCHER_TABLEAU_SIZE 25
 
 typedef struct SolverSolution
@@ -12,7 +13,7 @@ typedef struct SolverSolution
     double *t;             // mission elapsed time in seconds
     double *jd;            // absolute mission time in jd
     double (*y)[VEC_SIZE]; // position and velocity of spacecraft
-    size_t n;                 // number of steps taken
+    size_t n;              // number of steps taken
 } SolverSolution;
 
 typedef struct ButcherTableau
@@ -23,7 +24,7 @@ typedef struct ButcherTableau
 } ButcherTableau;
 
 // typedef for ode function
-typedef void (*ODEFunction)(double t, double jd, double y[VEC_SIZE], double dydt[VEC_SIZE]);
+typedef void (*ODEFunction)(double t, double jd, double y[VEC_SIZE], double dydt[VEC_SIZE], Spacecraft spacecraft);
 
 // typedef for error correlation
 typedef void (*RKErrorCorrelation)(double h, double F[MAX_BUTCHER_TABLEAU_SIZE][VEC_SIZE], double *e);
@@ -37,5 +38,12 @@ typedef struct RKSolver
     const size_t order;
 } RKSolver;
 
+typedef struct Problem
+{
+    double t0;
+    double t1;
+    Spacecraft spacecraft;
+    double y0[VEC_SIZE];
+} Problem;
 
 #endif
