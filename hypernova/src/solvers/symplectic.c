@@ -47,6 +47,12 @@ SolverSolution *symplectic_solve(SymplecticSolver solver, ODEFunction f, Problem
     {
         for (size_t stage = 0; stage < solver.num_stages; stage++)
         {
+            // update position
+            for (size_t j = 0; j < 3; j++)
+            {
+                y[j] += solver.c[stage] * y[j + 3] * h;
+            }
+
             // Compute acceleration
             f(t, jd, y, a, problem.spacecraft);
 
@@ -55,16 +61,11 @@ SolverSolution *symplectic_solve(SymplecticSolver solver, ODEFunction f, Problem
             {
                 y[j + 3] += solver.d[stage] * a[j + 3] * h;
             }
-
-            // update position
-            for (size_t j = 0; j < 3; j++)
-            {
-                y[j] += solver.c[stage] * y[j + 3] * h;
-            }
         }
 
         // Update solution, time, jd
-
+        t += h;
+        jd += h / 86400;
         for (size_t i = 0; i < VEC_SIZE; i++)
         {
             solution->y[step][i] = y[i];

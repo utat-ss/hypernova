@@ -18,17 +18,17 @@ typedef struct SolverSolution
 
 typedef struct ButcherTableau
 {
-    const double (*A)[MAX_BUTCHER_TABLEAU_SIZE]; // Derivative weights
-    const double(*b);                            // Next step weights
-    const double(*c);                            // Evaluation positions
+    double (*A)[MAX_BUTCHER_TABLEAU_SIZE]; // Derivative weights
+    double(*b);                            // Next step weights
+    double(*c);                            // Evaluation positions
 } ButcherTableau;
 
 typedef struct SymplecticSolver
 {
     // Weights
-    const double(*c);
-    const double(*d);
-    const size_t num_stages;
+    double(*c);
+    double(*d);
+    size_t num_stages;
 } SymplecticSolver;
 
 // typedef for ode function
@@ -39,12 +39,24 @@ typedef double (*RKErrorCorrelation)(double h, double F[MAX_BUTCHER_TABLEAU_SIZE
 
 typedef struct RKSolver
 {
-    const ButcherTableau weights;
+    ButcherTableau weights;
     RKErrorCorrelation err_corr;
-    const bool is_adaptive;
-    const size_t num_stages;
-    const size_t order;
+    bool is_adaptive;
+    size_t num_stages;
+    size_t order;
 } RKSolver;
+
+typedef union Solver
+{
+    RKSolver rk;
+    SymplecticSolver symplectic;
+} Solver;
+
+enum SolverType
+{
+    RK,
+    SYMPLECTIC
+};
 
 typedef struct Problem
 {
@@ -55,5 +67,6 @@ typedef struct Problem
 } Problem;
 
 void free_solver_solution(SolverSolution *solution);
+Solver cast_to_solver(void *solver);
 
 #endif

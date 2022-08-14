@@ -2,8 +2,8 @@
 
 SymplecticSolver verlet()
 {
-    static const double verlet_c[2] = {0.0, 1.0};
-    static const double verlet_d[2] = {0.5, 0.5};
+    static double verlet_c[2] = {0.0, 1.0};
+    static double verlet_d[2] = {0.5, 0.5};
 
     static SymplecticSolver solver = {
         .num_stages = 2,

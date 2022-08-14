@@ -42,11 +42,20 @@ Problem initialize_problem(double t0, double t1, double y0[VEC_SIZE], Spacecraft
     return problem;
 }
 
-SolverSolution *propagate_orbit(Problem problem, double timestep)
+SolverSolution *propagate_orbit(Problem problem, Solver solver, enum SolverType type, double timestep, double tol)
 {
     ODEFunction f = physics_ode;
-    // SolverSolution *solution = adaptive_rk_solve(rk45(), f, problem, 1e-3, timestep);
-    SolverSolution *solution = symplectic_solve(yoshida4(), f, problem, timestep);
 
-    return solution;
+    if (type == RK)
+    {
+        return adaptive_rk_solve(solver.rk, f, problem, tol, timestep);
+    }
+    else if (type == SYMPLECTIC)
+    {
+        return symplectic_solve(solver.symplectic, f, problem, timestep);
+    }
+    else
+    {
+        return NULL;
+    }
 }

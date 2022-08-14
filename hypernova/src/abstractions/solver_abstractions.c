@@ -7,3 +7,8 @@ void free_solver_solution(SolverSolution *solution)
     free(solution->y);
     free(solution);
 }
+
+Solver cast_to_solver(void *solver)
+{
+    return *(Solver *)solver;
+}

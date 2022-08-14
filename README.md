@@ -12,5 +12,10 @@ Hypernova will automatically compile C code into suitable binaries for your syst
 
 The Python wrapper takes care of calls to the propagator, making it easier to use for seasoned Python users.
 
+# Demos
+Hypernova comes with a few examples which you can run.
+## Basic Orbit and Plot
+`python -m hypernova.examples.basic_orbit_and_plot`
+
 # Testing Suite
 Hypernova is equipped with a testing suite to validate its functionality. The way to run the testing suite is to copy the scripts from the `/tests` folder into your working path and run `pytest` from your command terminal.
