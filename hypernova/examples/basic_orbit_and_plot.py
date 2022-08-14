@@ -5,7 +5,7 @@ from hypernova.propagation import propagate_orbit, initialize_spacecraft, initia
 
 def basic_orbit_and_plot():
     spacecraft = initialize_spacecraft(3)
-    problem = initialize_problem(0, 8000 / 86400, [6878e3, 0, 0, 0, 0, 7600], spacecraft)
+    problem = initialize_problem(0, 8000 / 86400, [6878e3, 0, 0, 0, 7500, 1000], spacecraft)
 
     solution = propagate_orbit(problem, YOSHIDA4, 20, 1e-6)
 
