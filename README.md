@@ -17,5 +17,9 @@ Hypernova comes with a few examples which you can run.
 ## Basic Orbit and Plot
 `python -m hypernova.examples.basic_orbit_and_plot`
 
+This will generate the following output:
+![Demo Image](../assets/basic_orbit_demo.png?raw=true)
+
+
 # Testing Suite
 Hypernova is equipped with a testing suite to validate its functionality. The way to run the testing suite is to copy the scripts from the `/tests` folder into your working path and run `pytest` from your command terminal.
