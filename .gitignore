@@ -37,4 +37,4 @@ MANIFEST
 *.exp
 *.lib
 *.log
-.vscode/settings.json
+*.json

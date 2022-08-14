@@ -10,9 +10,9 @@ def test_orbit_propagation():
 
     spacecraft = initialize_spacecraft(3)
 
-    y0 = [6378e3, 0, 0, 0, 7500, 0]
+    y0 = [6378e3, 0, 0, 0, 0, 7500]
 
-    problem = initialize_problem(0, 10000 / 86400, y0, spacecraft)
+    problem = initialize_problem(0, 8000 / 86400, y0, spacecraft)
 
     start_time = time.perf_counter()
     solution = propagate_orbit(problem, 1)
@@ -38,10 +38,13 @@ def test_orbit_propagation():
     plt.figure(figsize=(12, 5))
     plt.subplot(131)
     plt.plot(y[:, 0], y[:, 1])
+    plt.scatter(0, 0, s=100, c="b")
     plt.subplot(132)
-    plt.plot(y[:, 0], y[:, 2])
-    plt.subplot(133)
     plt.plot(y[:, 1], y[:, 2])
+    plt.scatter(0, 0, s=100, c="b")
+    plt.subplot(133)
+    plt.plot(y[:, 0], y[:, 2])
+    plt.scatter(0, 0, s=100, c="b")
     plt.tight_layout()
 
     plt.show()

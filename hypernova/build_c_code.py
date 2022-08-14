@@ -1,4 +1,5 @@
 from cffi import FFI
+import os
 
 ffibuilder = FFI()
 
@@ -37,25 +38,23 @@ ffibuilder.cdef("""
     SolverSolution *propagate_orbit(Problem problem, double timestep);
 """)
 
+# Walk through the directory and find all the .c files
+files = []
+include_dirs = set()
+for dirpath, dirnames, filenames in os.walk('hypernova/src'):
+    for filename in filenames:
+        if filename.endswith('.c'):
+            files.append(os.path.join(dirpath, filename))
+            include_dirs.add(dirpath)
 
-#  Any files with symbols exposed to CFFI or dependencies thereof must be
-#  included below. Include both header and source files.
+#  Any symbols exposed by CFFI must be included in the first argument of set_source.
 ffibuilder.set_source('hypernova.hypernova_c',  # name of the output C extension
                       '#include "vector_operations.h"\n'
                       '#include "solver_toy_problem.h"\n'
-                      '#include "adaptive_rk.h"\n'
-                      '#include "rk4.h"\n'
+                      '#include "solver_configurations.h"\n'
                       '#include "propagate_orbit.h"\n',
-                      include_dirs=["hypernova/src/vector_math",
-                                    "hypernova/src/solvers",
-                                    "hypernova/src/solvers/solver_configurations",
-                                    "hypernova/src/consolidations"],
-                      sources=['hypernova/src/vector_math/vector_operations.c',
-                               'hypernova/src/solvers/solver_toy_problem.c',
-                               'hypernova/src/solvers/adaptive_rk.c',
-                               'hypernova/src/solvers/solver_configurations/rk4.c',
-                               'hypernova/src/consolidations/propagate_orbit.c',
-                               'hypernova/src/physics/earth_gravity/simplified_gravity.c'],
+                      include_dirs=list(include_dirs),
+                      sources=files,
                       extra_compile_args=['-std=c99', '-O3', '-march=native', '-ffast-math', "-lm"])
 # TODO: link math library on unix based systems
 

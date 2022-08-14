@@ -18,20 +18,28 @@ typedef struct SolverSolution
 
 typedef struct ButcherTableau
 {
-    const double (*A)[MAX_BUTCHER_TABLEAU_SIZE];
-    const double(*b);
-    const double(*c);
+    const double (*A)[MAX_BUTCHER_TABLEAU_SIZE]; // Derivative weights
+    const double(*b);                            // Next step weights
+    const double(*c);                            // Evaluation positions
 } ButcherTableau;
+
+typedef struct SymplecticSolver
+{
+    // Weights
+    const double(*c);
+    const double(*d);
+    const size_t num_stages;
+} SymplecticSolver;
 
 // typedef for ode function
 typedef void (*ODEFunction)(double t, double jd, double y[VEC_SIZE], double dydt[VEC_SIZE], Spacecraft spacecraft);
 
 // typedef for error correlation
-typedef void (*RKErrorCorrelation)(double h, double F[MAX_BUTCHER_TABLEAU_SIZE][VEC_SIZE], double *e);
+typedef double (*RKErrorCorrelation)(double h, double F[MAX_BUTCHER_TABLEAU_SIZE][VEC_SIZE]);
 
 typedef struct RKSolver
 {
-    ButcherTableau *weights;
+    const ButcherTableau weights;
     RKErrorCorrelation err_corr;
     const bool is_adaptive;
     const size_t num_stages;
@@ -45,5 +53,7 @@ typedef struct Problem
     Spacecraft spacecraft;
     double y0[VEC_SIZE];
 } Problem;
+
+void free_solver_solution(SolverSolution *solution);
 
 #endif

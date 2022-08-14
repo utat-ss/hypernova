@@ -1,7 +1,8 @@
 #include "propagate_orbit.h"
 #include "../physics/earth_gravity/simplified_gravity.h"
-#include "../solvers/solver_configurations/rk4.h"
+#include "../solvers/solver_configurations.h"
 #include "../solvers/adaptive_rk.h"
+#include "../solvers/symplectic.h"
 
 void physics_ode(double t, double jd, double y[VEC_SIZE], double dydt[VEC_SIZE], Spacecraft spacecraft)
 {
@@ -9,12 +10,12 @@ void physics_ode(double t, double jd, double y[VEC_SIZE], double dydt[VEC_SIZE],
     simplified_gravity(t, y, f, spacecraft);
 
     // Update position derivatives
-    for (int i = 0; i < 3; i++)
+    for (size_t i = 0; i < 3; i++)
     {
         dydt[i] = y[i + 3];
     }
     // Update velocity derivatives
-    for (int i = 3; i < 6; i++)
+    for (size_t i = 3; i < 6; i++)
     {
         dydt[i] = f[i - 3] / spacecraft.mass;
     }
@@ -44,7 +45,8 @@ Problem initialize_problem(double t0, double t1, double y0[VEC_SIZE], Spacecraft
 SolverSolution *propagate_orbit(Problem problem, double timestep)
 {
     ODEFunction f = physics_ode;
-    SolverSolution *solution = adaptive_rk_solve(rk4(), f, &problem, 1e-6, timestep);
+    // SolverSolution *solution = adaptive_rk_solve(rk45(), f, problem, 1e-3, timestep);
+    SolverSolution *solution = symplectic_solve(yoshida4(), f, problem, timestep);
 
     return solution;
 }

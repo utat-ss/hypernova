@@ -1,6 +1,6 @@
 #include "adaptive_rk.h"
 #include "solver_toy_problem.h"
-#include "solver_configurations/rk4.h"
+#include "solver_configurations.h"
 #include <stdio.h>
 #include <math.h>
 
@@ -23,7 +23,7 @@ SolverSolution *solver_toy_problem_test()
         .y0 = {1, 0, 0, 0, 0, 0},
         .spacecraft = {.mass = 1}};
 
-    SolverSolution *solution = adaptive_rk_solve(rk4(), f, &problem, 1e-6, 0.05);
+    SolverSolution *solution = adaptive_rk_solve(rk4(), f, problem, 1e-6, 0.05);
 
     return solution;
 }
