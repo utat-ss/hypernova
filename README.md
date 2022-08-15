@@ -18,7 +18,7 @@ Hypernova comes with a few examples which you can run.
 `python -m hypernova.examples.basic_orbit_and_plot`
 
 This will generate the following output:
-![Demo Image](../assets/basic_orbit_demo.png?raw=true)
+![Demo Image](https://raw.githubusercontent.com/spacesys-finch/hypernova/assets/basic_orbit_demo.png)
 
 
 # Testing Suite
