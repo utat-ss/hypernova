@@ -1,4 +1,6 @@
 # Hypernova 🌠
+[![PyPI version](https://badge.fury.io/py/hypernova-orbit.svg)](https://badge.fury.io/py/hypernova-orbit)
+
 Re-implementation of the [Supernova orbit propagator](https://github.com/spacesys-finch/supernova) in a faster and more accessible package.
 
 Hypernova is a fast orbit propagator implemented in C and wrapped for Python using `cffi`, designed for the University of Toronto Aerospace Team's FINCH mission. FINCH orbits in a 550 km Sun-Synchronous orbit, and as such the solvers and physics models used by Hypernova were selected for the best simulation fidelity in a low-Earth orbit.
