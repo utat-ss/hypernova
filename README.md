@@ -1,18 +1,34 @@
 # Hypernova 🌠
-[![PyPI version](https://badge.fury.io/py/hypernova-orbit.svg)](https://badge.fury.io/py/hypernova-orbit)
+[![PyPi Version](https://img.shields.io/pypi/v/hypernova-orbit?style=for-the-badge)](https://pypi.org/project/hypernova-orbit/)
+[![PyPi Downloads](https://img.shields.io/pypi/dm/hypernova-orbit?style=for-the-badge)](https://pypi.org/project/hypernova-orbit/)
+[![License](https://img.shields.io/github/license/spacesys-finch/hypernova?style=for-the-badge)](https://github.com/spacesys-finch/hypernova/blob/main/LICENSE)
 
 Re-implementation of the [Supernova orbit propagator](https://github.com/spacesys-finch/supernova) in a faster and more accessible package.
 
-Hypernova is a fast orbit propagator implemented in C and wrapped for Python using `cffi`, designed for the University of Toronto Aerospace Team's FINCH mission. FINCH orbits in a 550 km Sun-Synchronous orbit, and as such the solvers and physics models used by Hypernova were selected for the best simulation fidelity in a low-Earth orbit.
+Hypernova is a fast orbit propagator implemented in C and wrapped for Python, designed for the University of Toronto Aerospace Team's FINCH mission. FINCH orbits in a 550 km Sun-Synchronous orbit, and as such the solvers and physics models used by Hypernova were selected for the best simulation fidelity in a low-Earth orbit.
 
 # Installation
-You can install Hypernova as a Python package directly using the following command:
+## From PyPI (recommended)
+Hypernova is on PyPI as [`hypernova-orbit`](https://pypi.org/project/hypernova-orbit/). Install using the following command:
+
+`pip install hypernova-orbit`
+
+**Note that a C compiler is required on your system in order for the C backend to be built.**
+
+## From GitHub
+You can install Hypernova from source as a Python package using the following command:
 
 `pip install git+https://github.com/spacesys-finch/hypernova`
 
-Hypernova will automatically compile C code into suitable binaries for your system on installation -- no more fiddling around with gcc or ctypes needed!
+This will let you get the most cutting-edge builds of Hypernova before they're pushed to PyPI.
 
-The Python wrapper takes care of calls to the propagator, making it easier to use for seasoned Python users.
+# Compatibility
+Hypernova uses `cffi` to wrap a fast C backend into easier-to-access functions in Python. The C backend does not come pre-compiled, and instead requires a compiler on the system to compile modules at install time. Hypernova is designed to automate this process, and it has been tested on the following operating systems:
+* Windows 10 (x86)
+* Ubuntu 20.04 LTS (x86)
+* MacOS 12 (M1)
+
+If you have issues installing Hypernova on your computer, [please open an issue](https://github.com/spacesys-finch/hypernova/issues/new/)!
 
 # Demos
 Hypernova comes with a few examples which you can run.
