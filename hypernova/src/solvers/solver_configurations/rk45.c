@@ -44,7 +44,7 @@ RKSolver rk45()
         .c = RK45_c};
 
     static RKSolver solver = {
-        .weights = weights,
+        .weights = &weights,
         .err_corr = rk45_error_correlation,
         .is_adaptive = true,
         .num_stages = 6,

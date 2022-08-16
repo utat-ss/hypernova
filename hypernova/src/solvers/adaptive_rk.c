@@ -137,10 +137,10 @@ inline double adaptive_rk_step(ODEFunction f, RKSolver solver, Spacecraft spacec
             v[component] = y[component];
             for (size_t i = 0; i < stage; i++)
             {
-                v[component] += h * F[i][component] * solver.weights.A[stage][i];
+                v[component] += h * F[i][component] * solver.weights->A[stage][i];
             }
         }
-        f(t + h * solver.weights.c[stage], jd + (h * solver.weights.c[stage]) / 86400, v, F[stage], spacecraft);
+        f(t + h * solver.weights->c[stage], jd + (h * solver.weights->c[stage]) / 86400, v, F[stage], spacecraft);
     }
 
     // advance solution
@@ -148,7 +148,7 @@ inline double adaptive_rk_step(ODEFunction f, RKSolver solver, Spacecraft spacec
     {
         for (size_t stage = 0; stage < solver.num_stages; stage++)
         {
-            y[component] += h * F[stage][component] * solver.weights.b[stage];
+            y[component] += h * F[stage][component] * solver.weights->b[stage];
         }
     }
 

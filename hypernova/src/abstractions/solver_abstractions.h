@@ -39,7 +39,7 @@ typedef double (*RKErrorCorrelation)(double h, double F[MAX_BUTCHER_TABLEAU_SIZE
 
 typedef struct RKSolver
 {
-    ButcherTableau weights;
+    ButcherTableau *weights;
     RKErrorCorrelation err_corr;
     bool is_adaptive;
     size_t num_stages;

@@ -26,7 +26,7 @@ RKSolver rk4()
         .c = RK4_c};
 
     static RKSolver solver = {
-        .weights = weights,
+        .weights = &weights,
         .err_corr = trivial_error_correlation,
         .is_adaptive = false,
         .num_stages = 4,
