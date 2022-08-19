@@ -5,20 +5,20 @@
 double rk45_error_correlation(double h, double F[MAX_BUTCHER_TABLEAU_SIZE][VEC_SIZE])
 {
     // F: array of slopes at each stage
-    double e = 0.0;
-
     static double CT[6] = {1.0 / 360.0, 0.0, -128.0 / 4275.0, -2197.0 / 75240.0, 1.0 / 50.0, 2.0 / 55.0};
+
+    double err_vector[3] = {0.0, 0.0, 0.0};
 
     for (size_t step = 0; step < 6; step++)
     {
         for (size_t component = 0; component < 3; component++)
         // only take position component of error
         {
-            e += h * CT[step] * F[step][component];
+            err_vector[component] += CT[step] * F[step][component];
         }
     }
 
-    return e;
+    return sqrt(err_vector[0] * err_vector[0] + err_vector[1] * err_vector[1] + err_vector[2] * err_vector[2]);
 }
 
 RKSolver rk45()

@@ -5,6 +5,7 @@
 
 RKSolver rk4();
 RKSolver rk45();
+RKSolver rk1012();
 SymplecticSolver verlet();
 SymplecticSolver yoshida4();
 SymplecticSolver yoshida8();

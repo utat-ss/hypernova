@@ -55,7 +55,7 @@ ffibuilder.cdef("""
 
     typedef struct RKSolver
     {
-        ButcherTableau weights;
+        ButcherTableau *weights;
         RKErrorCorrelation err_corr;
         bool is_adaptive;
         size_t num_stages;
@@ -83,6 +83,7 @@ ffibuilder.cdef("""
     // solvers
     RKSolver rk4();
     RKSolver rk45();
+    RKSolver rk1012();
     SymplecticSolver verlet();
     SymplecticSolver yoshida4();
     SymplecticSolver yoshida8();
