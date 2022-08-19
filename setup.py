@@ -4,7 +4,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
 
 setup(name='hypernova-orbit',
-      version='0.1.1',
+      version='0.2.0',
       author="Mingde Yin",
       description="Orbit propagation and analysis tool.",
       long_description=long_description,
