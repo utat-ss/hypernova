@@ -8,6 +8,7 @@ void physics_ode(double t, double jd, double y[VEC_SIZE], double dydt[VEC_SIZE],
 {
     double f[3];
     simplified_gravity(t, y, f, spacecraft);
+    perturbation_J2(t, y, f, spacecraft);
 
     // Update position derivatives
     for (size_t i = 0; i < 3; i++)
