@@ -1,7 +1,9 @@
-# Hypernova 🌠
+![Hypernova Logo](https://raw.githubusercontent.com/spacesys-finch/hypernova/assets/hypernova_logo.png)
 [![PyPi Version](https://img.shields.io/pypi/v/hypernova-orbit?style=for-the-badge)](https://pypi.org/project/hypernova-orbit/)
 [![PyPi Downloads](https://img.shields.io/pypi/dm/hypernova-orbit?style=for-the-badge)](https://pypi.org/project/hypernova-orbit/)
 [![License](https://img.shields.io/github/license/spacesys-finch/hypernova?style=for-the-badge)](https://github.com/spacesys-finch/hypernova/blob/main/LICENSE)
+
+---
 
 Re-implementation of the [Supernova orbit propagator](https://github.com/spacesys-finch/supernova) in a faster and more accessible package.
 
