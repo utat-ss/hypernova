@@ -3,7 +3,7 @@ from hypernova.hypernova_c.lib import initialize_problem as initialize_problem_c
 from hypernova.hypernova_c.lib import initialize_spacecraft as initialize_spacecraft_c
 from hypernova.hypernova_c.lib import RK, SYMPLECTIC, cast_to_solver
 from hypernova.hypernova_c import ffi
-from hypernova.solvers import RK4, RK45, RK1012, VERLET, YOSHIDA4, YOSHIDA8, SolverSolution
+from hypernova.solvers import *
 from logging import getLogger
 from time import perf_counter
 
@@ -58,7 +58,7 @@ def propagate_orbit(problem, solver, timestep: float, tol: float) -> SolverSolut
         Tolerance for error in metres.
     '''
 
-    if solver in [RK4, RK45, RK1012]:
+    if solver in [RK4, RK45, RK810, RK1012]:
         solver_type = RK
 
     elif solver in [VERLET, YOSHIDA4, YOSHIDA8]:

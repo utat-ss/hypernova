@@ -129,8 +129,11 @@ inline double adaptive_rk_step(ODEFunction f, RKSolver solver, Spacecraft spacec
     double F[MAX_BUTCHER_TABLEAU_SIZE][VEC_SIZE]; // slopes at each stage
     double v[VEC_SIZE];                           // intermediate values at each stage
 
-    // perform all stages
-    for (size_t stage = 0; stage < solver.num_stages; stage++)
+    // stage 0
+    f(t, jd, y, F[0], spacecraft);
+
+    // perform stages 1 and beyond
+    for (size_t stage = 1; stage < solver.num_stages; stage++)
     {
         for (size_t component = 0; component < VEC_SIZE; component++)
         {
@@ -140,6 +143,14 @@ inline double adaptive_rk_step(ODEFunction f, RKSolver solver, Spacecraft spacec
                 v[component] += h * F[i][component] * solver.weights->A[stage][i];
             }
         }
+        // // debug: print stage
+        // printf("Stage %zu\n", stage);
+        // for (size_t i = 0; i < VEC_SIZE; i++)
+        // {
+        //     printf("%f ", v[i]);
+        // }
+        // printf("\n");
+
         f(t + h * solver.weights->c[stage], jd + (h * solver.weights->c[stage]) / 86400, v, F[stage], spacecraft);
     }
 

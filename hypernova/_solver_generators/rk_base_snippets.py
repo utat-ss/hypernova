@@ -127,7 +127,7 @@ rk_step = \
 inline double adaptive_rk_step(ODEFunction f, Spacecraft spacecraft,
                                double t, double jd, double y[VEC_SIZE], double h)
 {
-    double F[MAX_BUTCHER_TABLEAU_SIZE][VEC_SIZE]; // slopes at each stage
+    double F[{{num_stages}}][VEC_SIZE]; // slopes at each stage
     double v[VEC_SIZE];                           // intermediate values at each stage
 
     // perform all stages
