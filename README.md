@@ -1,11 +1,11 @@
-![Hypernova Logo](https://raw.githubusercontent.com/spacesys-finch/hypernova/assets/hypernova_logo.png)
+![Hypernova Logo](https://raw.githubusercontent.com/utat-ss/hypernova/assets/hypernova_logo.png)
 [![PyPi Version](https://img.shields.io/pypi/v/hypernova-orbit?style=for-the-badge)](https://pypi.org/project/hypernova-orbit/)
 [![PyPi Downloads](https://img.shields.io/pypi/dm/hypernova-orbit?style=for-the-badge)](https://pypi.org/project/hypernova-orbit/)
-[![License](https://img.shields.io/github/license/spacesys-finch/hypernova?style=for-the-badge)](https://github.com/spacesys-finch/hypernova/blob/main/LICENSE)
+[![License](https://img.shields.io/github/license/utat-ss/hypernova?style=for-the-badge)](https://github.com/utat-ss/hypernova/blob/main/LICENSE)
 
 ---
 
-Re-implementation of the [Supernova orbit propagator](https://github.com/spacesys-finch/supernova) in a faster and more accessible package.
+Re-implementation of the [Supernova orbit propagator](https://github.com/utat-ss/supernova) in a faster and more accessible package.
 
 Hypernova is a fast orbit propagator implemented in C and wrapped for Python, designed for the University of Toronto Aerospace Team's FINCH mission. FINCH orbits in a 550 km Sun-Synchronous orbit, and as such the solvers and physics models used by Hypernova were selected for the best simulation fidelity in a low-Earth orbit.
 
@@ -20,7 +20,7 @@ Hypernova is on PyPI as [`hypernova-orbit`](https://pypi.org/project/hypernova-o
 ## From GitHub
 You can install Hypernova from source as a Python package using the following command:
 
-`pip install git+https://github.com/spacesys-finch/hypernova`
+`pip install git+https://github.com/utat-ss/hypernova`
 
 This will let you get the most cutting-edge builds of Hypernova before they're pushed to PyPI.
 
@@ -30,7 +30,7 @@ Hypernova uses `cffi` to wrap a fast C backend into easier-to-access functions i
 * Ubuntu 20.04 LTS (x86)
 * MacOS 12 (M1)
 
-If you have issues installing Hypernova on your computer, [please open an issue](https://github.com/spacesys-finch/hypernova/issues/new/)!
+If you have issues installing Hypernova on your computer, [please open an issue](https://github.com/utat-ss/hypernova/issues/new/)!
 
 # Demos
 Hypernova comes with a few examples which you can run.
@@ -38,7 +38,7 @@ Hypernova comes with a few examples which you can run.
 `python -m hypernova.examples.basic_orbit_and_plot`
 
 This will generate the following output:
-![Demo Image](https://raw.githubusercontent.com/spacesys-finch/hypernova/assets/basic_orbit_demo.png)
+![Demo Image](https://raw.githubusercontent.com/utat-ss/hypernova/assets/basic_orbit_demo.png)
 
 
 # Testing Suite
